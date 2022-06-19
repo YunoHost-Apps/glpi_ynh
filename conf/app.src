@@ -1,5 +1,5 @@
-SOURCE_URL=https://github.com/glpi-project/glpi/releases/download/9.5.7/glpi-9.5.7.tgz
-SOURCE_SUM=7cbb212b3ec3f3d86bf2492deb716b52e99662815d93e98e070fbcf25d662599
+SOURCE_URL=https://github.com/glpi-project/glpi/releases/download/10.0.1/glpi-10.0.1.tgz
+SOURCE_SUM=c599fca2e302b41067530dc6d3f2bee95536ce277ec8ea19d5ed810dfa386459
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=true
