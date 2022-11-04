@@ -1,5 +1,5 @@
-SOURCE_URL=https://github.com/glpi-project/glpi/releases/download/10.0.3/glpi-10.0.3.tgz
-SOURCE_SUM=6ccffb4fa8423a8223101048352578e8414741b403d4c86f4fecada6618a5adb
+SOURCE_URL=https://github.com/glpi-project/glpi/releases/download/10.0.4/glpi-10.0.4.tgz
+SOURCE_SUM=6c33567b0aa052ef3bd52a997bb283746c315bd48b53ac7561221011ffbe05af
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=true
