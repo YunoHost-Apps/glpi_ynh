@@ -17,8 +17,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 IT Asset Management.
 
-**Shipped version:** 10.0.3~ynh1
-
+**Shipped version:** 10.0.4~ynh1
 
 ## Screenshots
 

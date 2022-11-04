@@ -17,8 +17,7 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 
 Gestion des services informatiques (ITSM).
 
-**Version incluse :** 10.0.3~ynh1
-
+**Version incluse :** 10.0.4~ynh1
 
 ## Captures d'écran
 
