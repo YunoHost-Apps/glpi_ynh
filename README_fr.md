@@ -30,7 +30,7 @@ GLPI signifie Gestionnaire Libre de Parc Informatique. Il s'agit d'un progiciel 
 - Base de connaissances et foire aux questions (FAQ)
 - Réservation d'actifs
 
-**Version incluse :** 10.0.10~ynh1
+**Version incluse :** 10.0.11~ynh1
 
 ## Captures d’écran
 
@@ -41,7 +41,7 @@ GLPI signifie Gestionnaire Libre de Parc Informatique. Il s'agit d'un progiciel 
 * Site officiel de l’app : <https://glpi-project.org>
 * Documentation officielle de l’admin : <https://glpi-install.readthedocs.io/en/latest/>
 * Dépôt de code officiel de l’app : <https://github.com/glpi-project/glpi>
-* Documentation YunoHost pour cette app : <https://yunohost.org/app_glpi>
+* YunoHost Store: <https://apps.yunohost.org/app/glpi>
 * Signaler un bug : <https://github.com/YunoHost-Apps/glpi_ynh/issues>
 
 ## Informations pour les développeurs

@@ -31,7 +31,7 @@ GLPI stands for Gestionnaire Libre de Parc Informatique is a Free Asset and IT M
 - Asset reservation
 
 
-**Shipped version:** 10.0.10~ynh1
+**Shipped version:** 10.0.11~ynh1
 
 ## Screenshots
 
@@ -42,7 +42,7 @@ GLPI stands for Gestionnaire Libre de Parc Informatique is a Free Asset and IT M
 * Official app website: <https://glpi-project.org>
 * Official admin documentation: <https://glpi-install.readthedocs.io/en/latest/>
 * Upstream app code repository: <https://github.com/glpi-project/glpi>
-* YunoHost documentation for this app: <https://yunohost.org/app_glpi>
+* YunoHost Store: <https://apps.yunohost.org/app/glpi>
 * Report a bug: <https://github.com/YunoHost-Apps/glpi_ynh/issues>
 
 ## Developer info
