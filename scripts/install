@@ -11,6 +11,21 @@ ynh_script_progression "Setting up source files..."
 ynh_setup_source --dest_dir="$install_dir"
 
 #=================================================
+# APP INITIAL CONFIGURATION
+#=================================================
+ynh_script_progression "Adding $app's configuration files..."
+
+ynh_config_add --template="downstream.php" --destination="$install_dir/inc/downstream.php"
+
+chmod 400 "$install_dir/inc/downstream.php"
+chown "$app:$app" "$install_dir/inc/downstream.php"
+
+ynh_config_add --template="local_define.php" --destination="$install_dir/local_define.php"
+
+chmod 400 "$install_dir//local_define.php"
+chown "$app:$app" "$install_dir//local_define.php"
+
+#=================================================
 # INSTALL THE DATABASE
 #=================================================
 ynh_script_progression "Installing $app..."
