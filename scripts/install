@@ -1,9 +1,5 @@
 #!/bin/bash
 
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
-
 source _common.sh
 source /usr/share/yunohost/helpers
 
@@ -25,6 +21,8 @@ pushd "$install_dir"
 	"php$php_version" bin/console glpi:config:set url_base "https://$domain$path"
 	ynh_safe_rm "$install_dir/install/install.php"
 popd
+
+chown -R $app:www-data "$install_dir"
 
 #=================================================
 # SYSTEM CONFIGURATION

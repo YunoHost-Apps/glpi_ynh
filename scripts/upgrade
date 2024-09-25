@@ -1,9 +1,5 @@
 #!/bin/bash
 
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
-
 source _common.sh
 source /usr/share/yunohost/helpers
 
@@ -23,6 +19,8 @@ pushd "$install_dir"
 	"php$php_version" bin/console system:check_requirements
 	"php$php_version" bin/console db:update --no-interaction --no-telemetry --force
 popd
+
+chown -R $app:www-data "$install_dir"
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
