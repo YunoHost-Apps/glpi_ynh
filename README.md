@@ -31,7 +31,7 @@ GLPI stands for Gestionnaire Libre de Parc Informatique is a Free Asset and IT M
 - Asset reservation
 
 
-**Shipped version:** 10.0.16~ynh2
+**Shipped version:** 10.0.17~ynh1
 
 ## Screenshots
 
