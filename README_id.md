@@ -5,7 +5,9 @@ Ini TIDAK boleh diedit dengan tangan.
 
 # GLPI untuk YunoHost
 
-[![Tingkat integrasi](https://dash.yunohost.org/integration/glpi.svg)](https://ci-apps.yunohost.org/ci/apps/glpi/) ![Status kerja](https://ci-apps.yunohost.org/ci/badges/glpi.status.svg) ![Status pemeliharaan](https://ci-apps.yunohost.org/ci/badges/glpi.maintain.svg)
+[![Tingkat integrasi](https://apps.yunohost.org/badge/integration/glpi)](https://ci-apps.yunohost.org/ci/apps/glpi/)
+![Status kerja](https://apps.yunohost.org/badge/state/glpi)
+![Status pemeliharaan](https://apps.yunohost.org/badge/maintained/glpi)
 
 [![Pasang GLPI dengan YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=glpi)
 
@@ -31,7 +33,7 @@ GLPI stands for Gestionnaire Libre de Parc Informatique is a Free Asset and IT M
 - Asset reservation
 
 
-**Versi terkirim:** 10.0.17~ynh1
+**Versi terkirim:** 10.0.17~ynh2
 
 ## Tangkapan Layar
 
