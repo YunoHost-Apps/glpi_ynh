@@ -5,7 +5,9 @@ It shall NOT be edited by hand.
 
 # GLPI for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/glpi.svg)](https://ci-apps.yunohost.org/ci/apps/glpi/) ![Working status](https://ci-apps.yunohost.org/ci/badges/glpi.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/glpi.maintain.svg)
+[![Integration level](https://apps.yunohost.org/badge/integration/glpi)](https://ci-apps.yunohost.org/ci/apps/glpi/)
+![Working status](https://apps.yunohost.org/badge/state/glpi)
+![Maintenance status](https://apps.yunohost.org/badge/maintained/glpi)
 
 [![Install GLPI with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=glpi)
 
@@ -31,7 +33,7 @@ GLPI stands for Gestionnaire Libre de Parc Informatique is a Free Asset and IT M
 - Asset reservation
 
 
-**Shipped version:** 10.0.17~ynh1
+**Shipped version:** 10.0.17~ynh2
 
 ## Screenshots
 
