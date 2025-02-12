@@ -5,7 +5,7 @@ name = "GLPI"
 description.en = "IT Asset Management"
 description.fr = "Gestion des services informatiques (ITSM)"
 
-version = "10.0.17~ynh2"
+version = "10.0.18~ynh1"
 
 maintainers = []
 
@@ -42,8 +42,8 @@ ram.runtime = "50M"
 
 [resources]
     [resources.sources.main]
-    url = "https://github.com/glpi-project/glpi/releases/download/10.0.17/glpi-10.0.17.tgz"
-    sha256 = "4cfc485ad2b1ba16e38d2725a13375bda784abf1533a79971711feed0a7f5e11"
+    url = "https://github.com/glpi-project/glpi/releases/download/10.0.18/glpi-10.0.18.tgz"
+    sha256 = "fe044e021c17ee88e088a8a4392c7807c9a0f397a1a551689d2eb7f668439e96"
 
     autoupdate.strategy = "latest_github_release"
     autoupdate.asset = "^glpi-.*\\.tgz"
