@@ -32,7 +32,7 @@ GLPI signifie Gestionnaire Libre de Parc Informatique. Il s'agit d'un progiciel 
 - Base de connaissances et foire aux questions (FAQ)
 - Réservation d'actifs
 
-**Version incluse :** 10.0.17~ynh2
+**Version incluse :** 10.0.18~ynh1
 
 ## Captures d’écran
 
