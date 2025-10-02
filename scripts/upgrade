@@ -15,8 +15,8 @@ ynh_setup_source --dest_dir="$install_dir" --full_replace --keep="config files m
 ynh_script_progression "Updating the database..."
 
 pushd "$install_dir"
-	"php$php_version" bin/console system:check_requirements
-	"php$php_version" bin/console db:update --no-interaction --no-telemetry --force
+	ynh_exec_as_app php$php_version bin/console system:check_requirements
+	ynh_exec_as_app php$php_version bin/console db:update --no-interaction --no-telemetry --force
 popd
 
 chown -R $app:www-data "$install_dir"
