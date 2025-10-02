@@ -15,7 +15,7 @@ ynh_config_change_url_nginx
 ynh_script_progression "Configuring $app..."
 
 pushd "$install_dir"
-	"php$php_version" bin/console glpi:config:set url_base "https://$domain$path"
+	ynh_exec_as_app php$php_version bin/console glpi:config:set url_base "https://$domain$path"
 popd
 
 #=================================================
