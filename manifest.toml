@@ -73,7 +73,6 @@ ram.runtime = "50M"
         "php8.3-xmlrpc",
         "php8.3-bz2",
         "php8.3-zip",
-        "php8.3-bcmath",
     ]
 
     [resources.database]
