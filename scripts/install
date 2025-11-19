@@ -50,7 +50,7 @@ lastid=$($mysqlconn -BN -e "SELECT max(id) from \`glpi_rules\`")
 lastid=$(("$lastid" + 1 ))
 ynh_mysql_db_shell <<< "INSERT INTO \`glpi_rules\` VALUES ($lastid,0,'RuleRight',2,'YunoHost','','AND',1,'',NULL,0,'a287c79c-b2d8e96f-691d1bd7124ca6.38621203',0,NULL);"
 ynh_mysql_db_shell <<< "INSERT INTO \`glpi_rulecriterias\` (\`rules_id\`, \`criteria\`, \`condition\`, \`pattern\`) VALUES ($lastid,'_groups_id',0,'1');"
-ynh_mysql_db_shell <<< "INSERT INTO \`glpi_ruleactions\` (\`rules_id\`, \`action_type\`, \`field\`, \`value\`) VALUES ($lastid,'assign','profiles_id','1');"
+ynh_mysql_db_shell <<< "INSERT INTO \`glpi_ruleactions\` (\`rules_id\`, \`action_type\`, \`field\`, \`value\`) VALUES ($lastid,'assign','profiles_id','4');"
 
 #=================================================
 # SYSTEM CONFIGURATION
