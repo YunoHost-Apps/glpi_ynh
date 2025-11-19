@@ -10,6 +10,17 @@ ynh_script_progression "Setting up source files..."
 ynh_setup_source --dest_dir="$install_dir"
 
 #=================================================
+# TIMEZONE CONFIGURATION
+#=================================================
+ynh_script_progression "Setting up time zone..."
+
+mysql_tzinfo_to_sql /usr/share/zoneinfo/ | mysql -u root -D mysql
+
+ynh_mysql_db_shell <<< "GRANT SELECT ON \`mysql\`.\`time_zone_name\` TO '$db_user'@'localhost';"
+
+ynh_mysql_db_shell <<< "FLUSH PRIVILEGES;"
+
+#=================================================
 # INSTALL THE DATABASE
 #=================================================
 ynh_script_progression "Installing $app..."
