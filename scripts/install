@@ -12,7 +12,7 @@ ynh_setup_source --dest_dir="$install_dir"
 #=================================================
 # TIMEZONE CONFIGURATION
 #=================================================
-ynh_script_progression "Setting up time zone..."
+ynh_script_progression "Setting up time zones..."
 
 mysql_tzinfo_to_sql /usr/share/zoneinfo/ | mysql -u root -D mysql
 
