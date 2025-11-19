@@ -36,7 +36,9 @@ ynh_config_add_fail2ban --logpath="/var/log/nginx/$domain-access.log"
 #=================================================
 ynh_script_progression "Configuring LDAP authentication..."
 
-ynh_mysql_db_shell <<< "INSERT INTO `glpi_authldaps` VALUES
+mysqlconn=mysql --user=$db_user --password=$db_pwd --database=$db_name
+
+$mysqlconn -e "INSERT INTO \`glpi_authldaps\` VALUES
 (1,'YunoHost','localhost','dc=yunohost,dc=org','',389,'(&#38;(objectClass=posixAccount)(permission=cn=glpi.main,ou=permission,dc=yunohost,dc=org))','uid','entryuuid',0,'memberof','(objectClass = posixGroup)',0,'memberuid','mail','sn','givenname','telephonenumber','homephone','mobile','description',1,0,0,'title','businesscategory','preferredlanguage','ou','(objectClass=organizationalUnit)',NULL,'',1,1,'','employeenumber','','','','l','manager',1000,0,1,'jpegphoto',NULL,NULL,NULL,NULL,1,10);"
 
 # Import the 'admins' and 'all_users' groups from LDAP
@@ -45,7 +47,6 @@ ynh_mysql_db_shell <<< "INSERT INTO `glpi_groups` VALUES
 (2,0,0,'all_users',NULL,'memberof','cn=all_users,ou=groups,dc=yunohost,dc=org',NULL,NULL,0,'all_users',1,'[]',NULL,1,1,1,1,1,1,1,1,NULL);"
 
 # Associate users from the 'admins' LDAP group with the 'Super-Admin' profile
-mysqlconn=mysql --user=$db_user --password=$db_pwd --database=$db_name
 lastid=$($mysqlconn -BN -e "SELECT max(id) from \`glpi_rules\`")
 lastid=$(("$lastid" + 1 ))
 ynh_mysql_db_shell <<< "INSERT INTO `glpi_rules` VALUES ($lastid,0,'RuleRight',2,'YunoHost','','AND',1,'',NULL,0,'a287c79c-b2d8e96f-691d1bd7124ca6.38621203',0,NULL);"
