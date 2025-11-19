@@ -44,7 +44,7 @@ ynh_mysql_db_shell <<< "INSERT INTO \`glpi_groups\` VALUES
 (1,0,0,'admins',NULL,'memberof','cn=admins,ou=groups,dc=yunohost,dc=org',NULL,NULL,0,'admins',1,'[]','{\"4\":4}',1,1,1,1,1,1,1,1,NULL),
 (2,0,0,'all_users',NULL,'memberof','cn=all_users,ou=groups,dc=yunohost,dc=org',NULL,NULL,0,'all_users',1,'[]',NULL,1,1,1,1,1,1,1,1,NULL);"
 
-# Associate users from the 'admins' LDAP group with the 'Super-Admin' profile
+# Associate users from the 'admins' LDAP group with the 'Super-Admin' GLPI profile
 mysqlconn="mysql --user=$db_user --password=$db_pwd --database=$db_name"
 lastid=$($mysqlconn -BN -e "SELECT max(id) from \`glpi_rules\`")
 lastid=$(("$lastid" + 1 ))
@@ -53,12 +53,14 @@ ynh_mysql_db_shell <<< "INSERT INTO \`glpi_rulecriterias\` (\`rules_id\`, \`crit
 ynh_mysql_db_shell <<< "INSERT INTO \`glpi_ruleactions\` (\`rules_id\`, \`action_type\`, \`field\`, \`value\`) VALUES ($lastid,'assign','profiles_id','4');"
 
 # SSO configuration
-"php$php_version" bin/console config:set ssovariables_id "2"
-if ! ynh_permission_has_user --permission=main --user=visitors
-then
-        main_domain=$(cat /etc/yunohost/current_host)
-        "php$php_version" bin/console config:set ssologout_url "https://$main_domain/yunohost/sso/?action=logout"
-fi
+pushd "$install_dir"
+	"php$php_version" bin/console config:set ssovariables_id "2"
+	if ! ynh_permission_has_user --permission=main --user=visitors
+	then
+		main_domain=$(cat /etc/yunohost/current_host)
+		"php$php_version" bin/console config:set ssologout_url "https://$main_domain/yunohost/sso/?action=logout"
+	fi
+popd
 
 #=================================================
 # SYSTEM CONFIGURATION
