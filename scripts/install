@@ -75,11 +75,11 @@ ynh_mysql_db_shell <<< "INSERT INTO \`glpi_ruleactions\` (\`rules_id\`, \`action
 
 # SSO configuration
 pushd "$install_dir"
-	"php$php_version" bin/console config:set ssovariables_id "2"
+	ynh_exec_as_app "php$php_version" bin/console config:set ssovariables_id "2"
 	if ! ynh_permission_has_user --permission=main --user=visitors
 	then
 		main_domain=$(cat /etc/yunohost/current_host)
-		"php$php_version" bin/console config:set ssologout_url "https://$main_domain/yunohost/sso/?action=logout"
+		ynh_exec_as_app "php$php_version" bin/console config:set ssologout_url "https://$main_domain/yunohost/sso/?action=logout"
 	fi
 popd
 
