@@ -75,7 +75,7 @@ ynh_mysql_db_shell <<< "INSERT INTO \`glpi_rules\` (\`id\`, \`entities_id\`, \`s
 ynh_mysql_db_shell <<< "INSERT INTO \`glpi_rulecriterias\` (\`rules_id\`, \`criteria\`, \`condition\`, \`pattern\`) VALUES ($lastid,'_groups_id',0,'1');"
 ynh_mysql_db_shell <<< "INSERT INTO \`glpi_ruleactions\` (\`rules_id\`, \`action_type\`, \`field\`, \`value\`) VALUES ($lastid,'assign','profiles_id','4');"
 ynh_mysql_db_shell <<< "INSERT INTO \`glpi_ruleactions\` (\`rules_id\`, \`action_type\`, \`field\`, \`value\`) VALUES ($lastid,'assign','entities_id','0');"
-ynh_mysql_db_shell <<< "INSERT INTO \`glpi_ruleactions\` (\`rules_id\`, \`action_type\`, \`field\`, \`value\`) VALUES ($lastid,'assign','is_recursive','1');
+ynh_mysql_db_shell <<< "INSERT INTO \`glpi_ruleactions\` (\`rules_id\`, \`action_type\`, \`field\`, \`value\`) VALUES ($lastid,'assign','is_recursive','1');"
 
 # SSO configuration
 pushd "$install_dir"
