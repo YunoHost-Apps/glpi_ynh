@@ -67,13 +67,15 @@ ynh_mysql_db_shell <<< "INSERT INTO \`glpi_groups\`
 (1,0,0,'admins','LDAP: admins','memberof','cn=admins,ou=groups,dc=yunohost,dc=org',NULL,NOW(),0,'admins',1,'[]','{\"4\":4}',1,1,1,1,1,1,1,1,NOW()),
 (2,0,0,'all_users','LDAP: all_users','memberof','cn=all_users,ou=groups,dc=yunohost,dc=org',NULL,NOW(),0,'all_users',1,'[]',NULL,1,1,1,1,1,1,1,1,NOW());"
 
-# Associate users from the 'admins' LDAP group with the 'Super-Admin' GLPI profile
+# Recursively associate users from the 'admins' LDAP group with the 'Super-Admin' GLPI profile for the 'Root entity'
 mysqlconn="mysql --user=$db_user --password=$db_pwd --database=$db_name"
 lastid=$($mysqlconn -BN -e "SELECT COALESCE(MAX(id), 0) FROM \`glpi_rules\`")
 lastid=$(("$lastid" + 1 ))
 ynh_mysql_db_shell <<< "INSERT INTO \`glpi_rules\` (\`id\`, \`entities_id\`, \`sub_type\`, \`ranking\`, \`name\`, \`description\`, \`match\`, \`is_active\`, \`comment\`, \`date_mod\`, \`is_recursive\`, \`uuid\`, \`condition\`, \`date_creation\`) VALUES ($lastid,0,'RuleRight',2,'YunoHost','','AND',1,'',NULL,0,'a287c79c-b2d8e96f-691d1bd7124ca6.38621203',0,NOW());"
 ynh_mysql_db_shell <<< "INSERT INTO \`glpi_rulecriterias\` (\`rules_id\`, \`criteria\`, \`condition\`, \`pattern\`) VALUES ($lastid,'_groups_id',0,'1');"
 ynh_mysql_db_shell <<< "INSERT INTO \`glpi_ruleactions\` (\`rules_id\`, \`action_type\`, \`field\`, \`value\`) VALUES ($lastid,'assign','profiles_id','4');"
+ynh_mysql_db_shell <<< "INSERT INTO \`glpi_ruleactions\` (\`rules_id\`, \`action_type\`, \`field\`, \`value\`) VALUES ($lastid,'assign','entities_id','0');"
+ynh_mysql_db_shell <<< "INSERT INTO \`glpi_ruleactions\` (\`rules_id\`, \`action_type\`, \`field\`, \`value\`) VALUES ($lastid,'assign','is_recursive','1');
 
 # SSO configuration
 pushd "$install_dir"
