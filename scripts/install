@@ -24,6 +24,14 @@ popd
 chown -R $app:www-data "$install_dir"
 
 #=================================================
+# SETUP FAIL2BAN
+#=================================================
+ynh_script_progression --message="Configuring Fail2Ban..."
+
+# Create a dedicated Fail2Ban config
+ynh_config_add_fail2ban --logpath="/var/log/nginx/$domain-access.log"
+
+#=================================================
 # SYSTEM CONFIGURATION
 #=================================================
 ynh_script_progression "Adding system configurations related to $app..."

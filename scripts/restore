@@ -37,6 +37,23 @@ ynh_systemctl --service="php$php_version-fpm" --action=reload
 ynh_systemctl --service=nginx --action=reload
 
 #=================================================
+# RESTORE THE FAIL2BAN CONFIGURATION
+#=================================================
+ynh_script_progression "Restoring the Fail2Ban configuration..."
+
+ynh_restore "/etc/fail2ban/jail.d/$app.conf"
+ynh_restore "/etc/fail2ban/filter.d/$app.conf"
+
+# Make sure a log file exists (mostly for CI tests)
+logfile="$install_dir/files/_log/event.log"
+if [ ! -f "$logfile" ]; then
+	touch "$logfile"
+	chown "$app:" "$logfile"
+fi
+
+ynh_systemctl --action=restart --service=fail2ban
+
+#=================================================
 # END OF SCRIPT
 #=================================================
 

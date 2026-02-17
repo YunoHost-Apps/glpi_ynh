@@ -5,7 +5,7 @@ name = "GLPI"
 description.en = "IT Asset Management"
 description.fr = "Gestion des services informatiques (ITSM)"
 
-version = "11.0.4~ynh1"
+version = "11.0.5~ynh1"
 
 maintainers = []
 
@@ -16,7 +16,7 @@ admindoc = "https://glpi-install.readthedocs.io/en/latest/"
 code = "https://github.com/glpi-project/glpi"
 
 [integration]
-yunohost = ">= 12.1.17"
+yunohost = ">= 12.1.38"
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = true
@@ -42,8 +42,8 @@ ram.runtime = "50M"
 
 [resources]
     [resources.sources.main]
-    url = "https://github.com/glpi-project/glpi/releases/download/11.0.4/glpi-11.0.4.tgz"
-    sha256 = "a763297081a0085a72039efe67e1705c18101ef0c0ebca41c3c249f74055ee03"
+    url = "https://github.com/glpi-project/glpi/releases/download/11.0.5/glpi-11.0.5.tgz"
+    sha256 = "ec10263328e205e62d084e3842b5df0666a5d30755b04c53c279cdaec216ef96"
 
     autoupdate.strategy = "latest_github_release"
     autoupdate.asset = "^glpi-.*\\.tgz"
