@@ -41,6 +41,29 @@ ynh_config_add_nginx
 ynh_config_add --template="cron" --destination="/etc/cron.d/$app"
 
 #=================================================
+# TIMEZONE CONFIGURATION
+#=================================================
+if dpkg --compare-versions "$YNH_APP_CURRENT_VERSION" lt "11.0.6~ynh2"; then
+	ynh_script_progression "Setting up time zones..."
+	
+	if command -v mariadb-tzinfo-to-sql &> /dev/null; then
+	    TZ_TOOL="mariadb-tzinfo-to-sql"
+	else
+	    TZ_TOOL="mysql_tzinfo_to_sql"
+	fi
+	
+	if command -v mariadb &> /dev/null; then
+	    DB_CLIENT="mariadb"
+	else
+	    DB_CLIENT="mysql"
+	fi
+	
+	$TZ_TOOL /usr/share/zoneinfo/ | $DB_CLIENT -u root -D mysql
+	
+	ynh_mysql_db_shell <<< "GRANT SELECT ON \`mysql\`.\`time_zone_name\` TO '$db_user'@'localhost'; FLUSH PRIVILEGES;"
+fi
+
+#=================================================
 # END OF SCRIPT
 #=================================================
 
