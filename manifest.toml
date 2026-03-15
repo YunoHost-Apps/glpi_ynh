@@ -4,6 +4,7 @@ id = "glpi"
 name = "GLPI"
 description.en = "IT Asset Management"
 description.fr = "Gestion des services informatiques (ITSM)"
+description.pt_BR = "Gerenciamento de ativos de TI"
 
 version = "11.0.6~ynh1"
 
@@ -72,7 +73,6 @@ ram.runtime = "50M"
         "php8.3-xmlrpc",
         "php8.3-bz2",
         "php8.3-zip",
-        "php8.3-bcmath",
     ]
 
     [resources.database]
