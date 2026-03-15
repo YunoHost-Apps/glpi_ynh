@@ -10,6 +10,27 @@ ynh_script_progression "Setting up source files..."
 ynh_setup_source --dest_dir="$install_dir"
 
 #=================================================
+# TIMEZONE CONFIGURATION
+#=================================================
+ynh_script_progression "Setting up time zones..."
+
+if command -v mariadb-tzinfo-to-sql &> /dev/null; then
+    TZ_TOOL="mariadb-tzinfo-to-sql"
+else
+    TZ_TOOL="mysql_tzinfo_to_sql"
+fi
+
+if command -v mariadb &> /dev/null; then
+    DB_CLIENT="mariadb"
+else
+    DB_CLIENT="mysql"
+fi
+
+$TZ_TOOL /usr/share/zoneinfo/ | $DB_CLIENT -u root -D mysql
+
+ynh_mysql_db_shell <<< "GRANT SELECT ON \`mysql\`.\`time_zone_name\` TO '$db_user'@'localhost'; FLUSH PRIVILEGES;"
+
+#=================================================
 # INSTALL THE DATABASE
 #=================================================
 ynh_script_progression "Installing $app..."
@@ -26,7 +47,7 @@ chown -R $app:www-data "$install_dir"
 #=================================================
 # SETUP FAIL2BAN
 #=================================================
-ynh_script_progression --message="Configuring Fail2Ban..."
+ynh_script_progression "Configuring Fail2Ban..."
 
 # Create a dedicated Fail2Ban config
 ynh_config_add_fail2ban --logpath="/var/log/nginx/$domain-access.log"
