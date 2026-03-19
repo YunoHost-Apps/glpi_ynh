@@ -1,1 +1,2 @@
 */1 * * * * __APP__ /usr/bin/php__PHP_VERSION__ __INSTALL_DIR__/front/cron.php &>/dev/null
+0 * * * * __APP__ /usr/bin/php__PHP_VERSION__ -q -f __INSTALL_DIR__/bin/console glpi:ldap:synchronize_users --ldap-server-id=1 --no-interaction &>/dev/null
