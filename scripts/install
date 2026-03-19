@@ -45,6 +45,42 @@ popd
 chown -R $app:www-data "$install_dir"
 
 #=================================================
+# LDAP/SSO CONFIGURATION
+#=================================================
+ynh_script_progression "Setting up LDAP authentication..."
+
+ynh_mysql_db_shell <<< "INSERT INTO \`glpi_authldaps\` 
+(\`id\`, \`name\`, \`host\`, \`basedn\`, \`rootdn\`, \`port\`, \`condition\`, \`login_field\`, \`sync_field\`, \`use_tls\`, \`group_field\`, \`group_condition\`, \`group_search_type\`, \`group_member_field\`, \`email1_field\`, \`realname_field\`, \`firstname_field\`, \`phone_field\`, \`phone2_field\`, \`mobile_field\`, \`comment_field\`, \`use_dn\`, \`time_offset\`, \`deref_option\`, \`title_field\`, \`category_field\`, \`language_field\`, \`date_mod\`, \`comment\`, \`is_default\`, \`is_active\`, \`rootdn_passwd\`, \`registration_number_field\`, \`email2_field\`, \`email3_field\`, \`email4_field\`, \`location_field\`, \`responsible_field\`, \`pagesize\`, \`ldap_maxlimit\`, \`can_support_pagesize\`, \`picture_field\`, \`date_creation\`, \`inventory_domain\`, \`tls_certfile\`, \`tls_keyfile\`, \`use_bind\`, \`timeout\`) VALUES
+(1,'YunoHost','localhost','dc=yunohost,dc=org','',389,'(&#38;(objectClass=posixAccount)(permission=cn=glpi.main,ou=permission,dc=yunohost,dc=org))','uid','entryuuid',0,'memberof','(objectClass = posixGroup)',0,'memberuid','mail','sn','givenname','telephonenumber','homephone','mobile','description',1,0,0,'title','businesscategory','preferredlanguage',NULL,'',1,1,'','employeenumber','','','','l','manager',1000,0,1,'jpegphoto',NOW(),NULL,NULL,NULL,1,10);"
+
+# Import the 'admins' and 'all_users' groups from LDAP
+ynh_mysql_db_shell <<< "INSERT INTO \`glpi_groups\` 
+(\`id\`, \`entities_id\`, \`is_recursive\`, \`name\`, \`comment\`, \`ldap_field\`, \`ldap_value\`, \`ldap_group_dn\`, \`date_mod\`, \`groups_id\`, \`completename\`, \`level\`, \`ancestors_cache\`, \`sons_cache\`, \`is_requester\`, \`is_watcher\`, \`is_assign\`, \`is_task\`, \`is_notify\`, \`is_itemgroup\`, \`is_usergroup\`, \`is_manager\`, \`date_creation\`) VALUES
+(1,0,0,'admins','LDAP: admins','memberof','cn=admins,ou=groups,dc=yunohost,dc=org',NULL,NOW(),0,'admins',1,'[]','{\"4\":4}',1,1,1,1,1,1,1,1,NOW()),
+(2,0,0,'all_users','LDAP: all_users','memberof','cn=all_users,ou=groups,dc=yunohost,dc=org',NULL,NOW(),0,'all_users',1,'[]',NULL,1,1,1,1,1,1,1,1,NOW());"
+
+# Recursively associate users from the 'admins' LDAP group with the 'Super-Admin' GLPI profile for the 'Root entity'
+mysqlconn="mysql --user=$db_user --password=$db_pwd --database=$db_name"
+lastid=$($mysqlconn -BN -e "SELECT COALESCE(MAX(id), 0) FROM \`glpi_rules\`")
+lastid=$(("$lastid" + 1 ))
+ynh_mysql_db_shell <<< "INSERT INTO \`glpi_rules\` (\`id\`, \`entities_id\`, \`sub_type\`, \`ranking\`, \`name\`, \`description\`, \`match\`, \`is_active\`, \`comment\`, \`date_mod\`, \`is_recursive\`, \`uuid\`, \`condition\`, \`date_creation\`) VALUES ($lastid,0,'RuleRight',2,'YunoHost','','AND',1,'',NULL,0,'a287c79c-b2d8e96f-691d1bd7124ca6.38621203',0,NOW());"
+ynh_mysql_db_shell <<< "INSERT INTO \`glpi_rulecriterias\` (\`rules_id\`, \`criteria\`, \`condition\`, \`pattern\`) VALUES ($lastid,'_groups_id',0,'1');"
+ynh_mysql_db_shell <<< "INSERT INTO \`glpi_ruleactions\` (\`rules_id\`, \`action_type\`, \`field\`, \`value\`) VALUES ($lastid,'assign','profiles_id','4');"
+ynh_mysql_db_shell <<< "INSERT INTO \`glpi_ruleactions\` (\`rules_id\`, \`action_type\`, \`field\`, \`value\`) VALUES ($lastid,'assign','_profiles_id_default','4');"
+ynh_mysql_db_shell <<< "INSERT INTO \`glpi_ruleactions\` (\`rules_id\`, \`action_type\`, \`field\`, \`value\`) VALUES ($lastid,'assign','entities_id','0');"
+ynh_mysql_db_shell <<< "INSERT INTO \`glpi_ruleactions\` (\`rules_id\`, \`action_type\`, \`field\`, \`value\`) VALUES ($lastid,'assign','is_recursive','1');"
+
+# SSO configuration
+pushd "$install_dir"
+	ynh_exec_as_app "php$php_version" bin/console config:set ssovariables_id "2"
+	if ! ynh_permission_has_user --permission=main --user=visitors
+	then
+		main_domain=$(cat /etc/yunohost/current_host)
+		ynh_exec_as_app "php$php_version" bin/console config:set ssologout_url "https://$main_domain/yunohost/sso/?action=logout"
+	fi
+popd
+
+#=================================================
 # SETUP FAIL2BAN
 #=================================================
 ynh_script_progression "Configuring Fail2Ban..."
